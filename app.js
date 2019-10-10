@@ -1,16 +1,16 @@
 require('dotenv').config()
 
-var telegramBot = require('node-telegram-bot-api');
+const telegramBot = require('node-telegram-bot-api');
 
-var token = process.env.TOKEN;
+const token = process.env.TOKEN;
 
-var api = new telegramBot (token, {polling: true});
+const api = new telegramBot (token, {polling: true});
 
 const axios = require('axios');
 
 function bot(cmd, url, message) {
 	api.onText(/\/cmd/, function(msg, match) {
-    var fromId = msg.from.id;
+    let fromId = msg.from.id;
     api.sendMessage(fromId, message)
 	});
 }
@@ -27,14 +27,14 @@ function logger() {
 }
 
 api.onText(/\/help/, function(msg, match) {
-  var fromId = msg.from.id;
+  let fromId = msg.from.id;
   api.sendMessage(fromId, "I can help you in getting the latest information about bitcoin (BTC).");
   logger();
 });
 
 api.onText(/\/start/, function(msg, match) {
-  var fromId = msg.from.id;
-  var fromName = msg.from.first_name;
+  let fromId = msg.from.id;
+  let fromName = msg.from.first_name;
   api.sendMessage(fromId, "Hello "+fromName+". They call me BTC Support Bot. " + 
                           "I can help you in getting the latest information about bitcoin (BTC). "+
                           "To help you, here area a few commands.\n/help\n/start\n/difficulty\n/tx txid\n/btc");
@@ -42,7 +42,7 @@ api.onText(/\/start/, function(msg, match) {
 });
 
 api.onText(/\/difficulty/, function(msg, match) {
-	var fromId = msg.from.id;
+	let fromId = msg.from.id;
 	axios.get('https://blockchain.info/q/getdifficulty')
                 .then(function(response) {
                    api.sendMessage(fromId, "The difficulty is: " + response.data);   
@@ -51,15 +51,15 @@ api.onText(/\/difficulty/, function(msg, match) {
 });
 
 api.onText(/\/btc/, function(msg, match) {
-  var fromId = msg.from.id;
+  let fromId = msg.from.id;
   axios.get('https://api.coindesk.com/v1/bpi/currentprice/zar.json')
                     .then(response => {
-                        var usd = response.data.bpi.USD.rate_float;
+                        let usd = response.data.bpi.USD.rate_float;
                         api.sendMessage(fromId, "The BTC exchange rate is: $" + usd);
                     });
   axios.get('https://api.mybitx.com/api/1/ticker?pair=XBTZAR')
                     .then(response => {
-                        var zar = response.data.last_trade;
+                        let zar = response.data.last_trade;
                         api.sendMessage(fromId, "The ZAR exchange rate is: R" + zar);
                     });
   logger();

@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var uristring = 'mongodb://localhost/botlog';
+const uristring = 'mongodb://localhost/botlog';
 
 mongoose.connect(uristring, function(err, res) {
 	if(err) {
@@ -11,7 +11,7 @@ mongoose.connect(uristring, function(err, res) {
 });
 
 // Schema
-var messageSchema = new mongoose.Schema({
+const messageSchema = new mongoose.Schema({
 	user: {
 		name: String,
 		id: Number
@@ -25,7 +25,7 @@ var messageSchema = new mongoose.Schema({
 });
 
 // Model
-var Message = mongoose.model('Messages', messageSchema);
+const Message = mongoose.model('Messages', messageSchema);
 
 module.exports = {
 	getLogs(cb) {
