@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const uristring = 'mongodb://localhost/botlog';
 
-mongoose.connect(uristring, function(err, res) {
-	if(err) {
-		console.log('Error connecting to: '+ uristring + '. ' +err);
+mongoose.connect(uristring, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, res) {
+	if (err) {
+		console.log('Error connecting to: ' + uristring + '. ' + err);
 	} else {
-		console.log('Succeeded connected to: '+ uristring);
+		console.log('Succeeded connected to: ' + uristring);
 	}
 });
 
