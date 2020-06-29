@@ -56,7 +56,11 @@ api.onText(/\/difficulty/, function (msg, match) {
 api.onText(/\/tx (.+)/, function (msg, match) {
   var fromId = msg.from.id;
   const txid = match[1];
-  axios.get('https://blockexplorer.electroneum.com/api/transaction/' + txid)
+  axios.get('https://blockexplorer.electroneum.com/api/transaction/' + txid, {
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
+  })
     .then(response => {
       let confirmations = response.data.data.confirmations
       api.sendMessage(fromId, "The transaction has: " + confirmations + " confirmations.");
