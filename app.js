@@ -58,7 +58,7 @@ api.onText(/\/tx (.+)/, function (msg, match) {
   const txid = match[1];
   axios.get('https://blockexplorer.electroneum.com/api/transaction/' + txid, {
     headers: {
-      'Access-Control-Allow-Origin': '*'
+      'Cookie': 'AWSALB=/bjacVhr9M46IzAjot7O1wr1+bXCB8B8uvOaqw9+niAsE6VAdS9wBAn4CdwPCE5mVuvs9ixllt/RAzZJff+avOz1A652A2DT21XBbdI5iBDrCBOzzDPnwvhsCVIF; AWSALBCORS=/bjacVhr9M46IzAjot7O1wr1+bXCB8B8uvOaqw9+niAsE6VAdS9wBAn4CdwPCE5mVuvs9ixllt/RAzZJff+avOz1A652A2DT21XBbdI5iBDrCBOzzDPnwvhsCVIF'
     }
   })
     .then(response => {
