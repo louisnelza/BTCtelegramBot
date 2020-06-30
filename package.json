@@ -12,6 +12,7 @@
     "axios": "^0.18.0",
     "dotenv": "^8.1.0",
     "express": "^4.16.4",
+    "mongoose": "^5.9.20",
     "node-telegram-bot-api": "^0.30.0"
   },
   "engines": {
