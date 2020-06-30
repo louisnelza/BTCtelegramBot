@@ -56,11 +56,7 @@ api.onText(/\/difficulty/, function (msg, match) {
 api.onText(/\/tx (.+)/, function (msg, match) {
   var fromId = msg.from.id;
   const txid = match[1];
-  axios.get('https://blockexplorer.electroneum.com/api/transaction/' + txid, {
-    headers: {
-      'Cookie': 'AWSALB=/bjacVhr9M46IzAjot7O1wr1+bXCB8B8uvOaqw9+niAsE6VAdS9wBAn4CdwPCE5mVuvs9ixllt/RAzZJff+avOz1A652A2DT21XBbdI5iBDrCBOzzDPnwvhsCVIF; AWSALBCORS=/bjacVhr9M46IzAjot7O1wr1+bXCB8B8uvOaqw9+niAsE6VAdS9wBAn4CdwPCE5mVuvs9ixllt/RAzZJff+avOz1A652A2DT21XBbdI5iBDrCBOzzDPnwvhsCVIF'
-    }
-  })
+  axios.get(`https://chain.api.btc.com/v3/tx/${txid}`)
     .then(response => {
       let confirmations = response.data.data.confirmations
       api.sendMessage(fromId, "The transaction has: " + confirmations + " confirmations.");
