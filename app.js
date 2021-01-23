@@ -69,7 +69,7 @@ api.onText(/\/btc/, function (msg, match) {
     });
   axios.get('https://api.mybitx.com/api/1/ticker?pair=XBTZAR')
     .then(response => {
-      let zar = (response.data.last_trade).toFixed(2);
+      let zar = parseInt(response.data.last_trade).toFixed(2);
       api.sendMessage(fromId, "The ZAR exchange rate is: R" + zar);
     });
   logger();
