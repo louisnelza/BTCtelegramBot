@@ -64,12 +64,12 @@ api.onText(/\/btc/, function (msg, match) {
   let fromId = msg.from.id;
   axios.get('https://api.coindesk.com/v1/bpi/currentprice/zar.json')
     .then(response => {
-      let usd = response.data.bpi.USD.rate_float;
+      let usd = (response.data.bpi.USD.rate_float).toFixed(2);
       api.sendMessage(fromId, "The BTC exchange rate is: $" + usd);
     });
   axios.get('https://api.mybitx.com/api/1/ticker?pair=XBTZAR')
     .then(response => {
-      let zar = response.data.last_trade;
+      let zar = (response.data.last_trade).toFixed(2);
       api.sendMessage(fromId, "The ZAR exchange rate is: R" + zar);
     });
   logger();
