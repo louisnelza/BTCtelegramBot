@@ -80,22 +80,22 @@ api.onText(/\/spread/, function (msg, match) {
   Promise.all([
     fetch("https://www.bitstamp.net/api/v2/ticker/btcgbp/"),
     fetch("https://api.mybitx.com/api/1/ticker?pair=XBTZAR"),
-    fetch("https://free.currconv.com/api/v7/convert?q=GBP_ZAR&compact=ultra&apiKey=78ac46631b252f3df334")
-  ]).then(async([aa, bb, cc]) => {
+    fetch("https://api.exchangeratesapi.io/latest?base=GBP&symbols=ZAR")
+  ]).then(async ([aa, bb, cc]) => {
     const a = await aa.json();
     const b = await bb.json();
     const c = await cc.json();
-    return {a, b, c}
+    return { a, b, c }
   })
-  .then((responseText) => {
-    let bitstamp = parseInt(responseText.a.last)
-    let luno = parseInt(responseText.b.last_trade)
-    let luno_GBP = (luno / responseText.c.GBP_ZAR).toFixed(2) 
-    let spread = (( luno_GBP - bitstamp ) / luno_GBP * 100).toFixed(2)
-    api.sendMessage(fromId, `The Bitstamp price is: £${bitstamp}`);
-    api.sendMessage(fromId, `The Luno price in GBP: £${luno_GBP}`);
-    api.sendMessage(fromId, `The spread is: ${spread}%`);
-  })
+    .then((responseText) => {
+      let bitstamp = parseInt(responseText.a.last)
+      let luno = parseInt(responseText.b.last_trade)
+      let luno_GBP = (luno / responseText.c.rates.ZAR).toFixed(2)
+      let spread = ((luno_GBP - bitstamp) / luno_GBP * 100).toFixed(2)
+      api.sendMessage(fromId, `The Bitstamp price is: £${bitstamp}`);
+      api.sendMessage(fromId, `The Luno price in GBP: £${luno_GBP}`);
+      api.sendMessage(fromId, `The spread is: ${spread}%`);
+    })
 })
 
 
