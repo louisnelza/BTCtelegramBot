@@ -80,7 +80,7 @@ api.onText(/\/spread/, function (msg, match) {
   Promise.all([
     fetch("https://www.bitstamp.net/api/v2/ticker/btcgbp/"),
     fetch("https://api.mybitx.com/api/1/ticker?pair=XBTZAR"),
-    fetch("https://free.currconv.com/api/v7/convert?q=GBP_ZAR&compact=ultra&apiKey=78ac46631b252f3df334")
+    fetch(`https://free.currconv.com/api/v7/convert?q=GBP_ZAR&compact=ultra&apiKey=${process.env.API_KEY}`)
   ]).then(async ([aa, bb, cc]) => {
     const a = await aa.json();
     const b = await bb.json();
