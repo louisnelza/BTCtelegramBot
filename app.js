@@ -5,6 +5,12 @@ const api = new telegramBot(token, { polling: true });
 const axios = require('axios');
 const fetch = require("node-fetch");
 const db = require("./db");
+const { Configuration, OpenAIApi } = require("openai");
+
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
 
 // write a generic function to avoid repetion
 function bot(cmd, url, message) {
@@ -98,5 +104,33 @@ api.onText(/\/spread/, function (msg, match) {
     })
 })
 
+// Define a new function to handle incoming messages with ChatGPT
+async function handleGPTMessage(msg) {
+  // Get the message text from the user
+  const messageText = msg.text;
+
+  // Call OpenAI's GPT-3 API to generate a response
+  const completion = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: messageText,
+    max_tokens: 256,
+    temperature: 0,
+  });
+  const gptResponse = completion.data.choices[0].text;
+
+  // Send the response back to the user
+  api.sendMessage(msg.chat.id, gptResponse);
+
+  // Log the conversation in the database
+  db.addLog(
+    { name: msg.from.first_name, id: msg.from.id },
+    { chat_id: msg.chat.id, id: msg.message_id, text: messageText }
+  );
+}
+
+// Add the GPT-3 message handler to the Telegram bot's message event
+api.onText(/\/prompt (.+)/, async (msg, match) => {
+    await handleGPTMessage(msg);
+});
 
 console.log("BTC Support Bot has started. Start conversations in your Telegram.");
