@@ -70,17 +70,17 @@ api.onText(/\/btc/, function (msg, match) {
   let fromId = msg.from.id;
   axios.get('https://api.coindesk.com/v1/bpi/currentprice/zar.json')
     .then(response => {
-      let usd = (response.data.bpi.USD.rate_float).toFixed(2);
+      let usd = (response.data.bpi.USD.rate_float).toFixed(0);
       api.sendMessage(fromId, "The Coindesk rate is: $" + usd);
     });
   axios.get('https://api.mybitx.com/api/1/ticker?pair=XBTZAR')
     .then(response => {
-      let zar = parseInt(response.data.last_trade).toFixed(2);
+      let zar = parseInt(response.data.last_trade).toFixed(0);
       api.sendMessage(fromId, "The Luno rate is: R" + zar);
     });
   axios.get('https://api.valr.com/v1/public/BTCZAR/marketsummary')
     .then(response => {
-      const zar = parseInt(response.data.lastTradedPrice).toFixed(2);
+      const zar = parseInt(response.data.lastTradedPrice).toFixed(0);
       api.sendMessage(fromId, "The VALR rate is: R" + zar);
     });
   logger();
