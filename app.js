@@ -80,7 +80,7 @@ api.onText(/\/btc/, function (msg, match) {
     });
   axios.get('https://api.valr.com/v1/public/BTCZAR/marketsummary')
     .then(response => {
-      const zar parseInt(response.data.lastTradedPrice).toFixed(2);
+      const zar = parseInt(response.data.lastTradedPrice).toFixed(2);
       api.sendMessage(fromId, "The VALR rate is: R" + zar);
     });
   logger();
