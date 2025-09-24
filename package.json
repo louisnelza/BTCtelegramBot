@@ -14,7 +14,7 @@
     "express": "^4.21.2",
     "follow-redirects": "^1.15.4",
     "node-fetch": "^2.6.7",
-    "node-telegram-bot-api": "^0.30.0",
+    "node-telegram-bot-api": "^0.66.0",
     "mongoose": "^5.13.15",
     "openai": "^5.22.1"
   },
