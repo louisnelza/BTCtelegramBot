@@ -11,11 +11,11 @@
   "dependencies": {
     "axios": "^1.12.2",
     "dotenv": "^8.1.0",
-    "express": "^4.17.3",
+    "express": "^5.1.0",
     "follow-redirects": "^1.15.4",
     "node-fetch": "^2.6.7",
-    "node-telegram-bot-api": "^0.30.0",
     "mongoose": "^6.13.6",
+    "node-telegram-bot-api": "^0.66.0",
     "openai": "^5.22.1"
   },
   "engines": {
