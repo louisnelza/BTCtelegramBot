@@ -5,12 +5,11 @@ const api = new telegramBot(token, { polling: true });
 const axios = require('axios');
 const fetch = require("node-fetch");
 const db = require("./db");
-const { Configuration, OpenAIApi } = require("openai");
+const OpenAI = require("openai");
 
-const configuration = new Configuration({
+const openAI = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 // write a generic function to avoid repetion
 function bot(cmd, url, message) {
@@ -115,7 +114,7 @@ async function handleGPTMessage(msg) {
   const messageText = msg.text;
 
   // Call OpenAI's GPT-3 API to generate a response
-  const completion = await openai.createCompletion({
+  const completion = await openAI.createCompletion({
     model: "text-davinci-003",
     prompt: messageText,
     max_tokens: 256,
