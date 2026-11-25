@@ -1,6 +1,10 @@
 require('dotenv').config()
 const telegramBot = require('node-telegram-bot-api');
 const token = process.env.TOKEN;
+if (!token) {
+  console.error('Missing TOKEN. Copy .env.example to .env and set your Telegram bot token.');
+  process.exit(1);
+}
 const api = new telegramBot(token, { polling: true });
 const axios = require('axios');
 const fetch = require("node-fetch");
